@@ -4,6 +4,26 @@ document.addEventListener("DOMContentLoaded", function(){
     const addButton = document.getElementById("add-task-btn");
     const taskInput = document.getElementById("task-input");
     const taskList = document.getElementById('task-list');
+
+    // Array to store task strings
+    let tasks = [];
+    //Loading tasks from Local storage and displaying them
+    function loadTasks(){
+        const storedTasks = localStorage.getItem('tasks');
+        if (storedTasks) {
+            tasks = JSON.parse(storedTasks);
+            tasks.forEach(taskText=>{
+                createTaskElement(taskText);
+            });
+        }
+    }
+
+    //Saving the current tasks to Local Storage
+    function saveTasks(){
+        localStorage.setItem("tasks",JSON.stringify(tasks));
+    }
+
+
     //Function to add task
     function addTask () {
         const taskText = taskInput.value.trim();//Get and trim Value
@@ -12,6 +32,12 @@ document.addEventListener("DOMContentLoaded", function(){
             alert("Please enter a task.");
             return;
         }
+
+     
+
+        
+
+
         //Creating a list item & Removing items from list
         const listItem = document.createElement("li");
         listItem.textContent =taskText;
